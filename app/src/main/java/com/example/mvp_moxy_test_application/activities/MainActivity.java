@@ -26,6 +26,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     private RecyclerView elementsRecyclerView;
     private MainAdapter adapter;
     private AppCompatButton addButton;
+    private AppCompatButton removeButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,14 +38,30 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         adapter = new MainAdapter();
         elementsRecyclerView.setAdapter(adapter);
         addButton = findViewById(R.id.add_element);
+        removeButton = findViewById(R.id.remove_element);
 
         addButton.setOnClickListener(view -> presenter.onAddButtonClick());
+        removeButton.setOnClickListener(view -> presenter.onRemoveButtonClick());
     }
 
     @Override
     public void showData(List<Element> elementList) {
-        Toast.makeText(this, "loaded new data", Toast.LENGTH_LONG).show();
         adapter.setData(elementList);
+    }
+
+    @Override
+    public void showMesssage(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void addElementToAdapter(int position) {
+        adapter.addElement(position);
+    }
+
+    @Override
+    public void removeElementFromAdapter(int position) {
+        adapter.removeElement(position);
     }
 
 }

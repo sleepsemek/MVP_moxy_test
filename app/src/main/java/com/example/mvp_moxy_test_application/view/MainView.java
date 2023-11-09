@@ -6,11 +6,15 @@ import java.util.List;
 
 import moxy.MvpView;
 import moxy.viewstate.strategy.AddToEndStrategy;
+import moxy.viewstate.strategy.OneExecutionStateStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
+@StateStrategyType(AddToEndStrategy.class)
 public interface MainView extends MvpView {
 
-    @StateStrategyType(AddToEndStrategy.class)
     void showData(List<Element> elementList);
-
+    void addElementToAdapter(int position);
+    void removeElementFromAdapter(int position);
+    @StateStrategyType(OneExecutionStateStrategy.class)
+    void showMesssage(String msg);
 }
